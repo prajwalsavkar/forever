@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="200" height="240">
+  <g>
+  <ellipse cx="100" cy="200" rx="62" ry="56" fill="#F3E0C2"/>
+  <ellipse cx="60" cy="198" rx="16" ry="13" fill="#E2C79C"/>
+  <ellipse cx="140" cy="198" rx="16" ry="13" fill="#E2C79C"/>
+  <g transform="translate(100 188)">
+  <g fill="#F7B8CB">
+    <ellipse cx="0" cy="-16" rx="9" ry="13"/><ellipse cx="15" cy="-5" rx="13" ry="9"/>
+    <ellipse cx="-15" cy="-5" rx="13" ry="9"/><ellipse cx="9" cy="12" rx="9" ry="13"/>
+    <ellipse cx="-9" cy="12" rx="9" ry="13"/>
+  </g>
+  <circle cx="0" cy="0" r="8" fill="#F6D06A"/>
+</g>
+  
+  <!-- ears -->
+  <path d="M46 74 L52 34 L84 58 Z" fill="#F3E0C2"/>
+  <path d="M154 74 L148 34 L116 58 Z" fill="#F3E0C2"/>
+  <path d="M55 70 L59 46 L78 62 Z" fill="#E2C79C"/>
+  <path d="M145 70 L141 46 L122 62 Z" fill="#E2C79C"/>
+  <!-- head -->
+  <ellipse cx="100" cy="96" rx="56" ry="50" fill="#F3E0C2"/>
+  
+  <!-- eyes -->
+  <path d="M74 92 q 9 -12 18 0" stroke="#4A3742" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  <path d="M108 92 q 9 -12 18 0" stroke="#4A3742" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  <!-- nose + mouth -->
+  <path d="M94 100 L106 100 L100 107 Z" fill="#EF7C93"/>
+  <path d="M100 107 q -7 9 -14 3" stroke="#4A3742" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M100 107 q 7 9 14 3" stroke="#4A3742" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- cheeks -->
+  <ellipse cx="68" cy="106" rx="11" ry="7" fill="#F2A9BE" opacity="0.75"/>
+  <ellipse cx="132" cy="106" rx="11" ry="7" fill="#F2A9BE" opacity="0.75"/>
+  <!-- whiskers -->
+  <g stroke="#4A3742" stroke-width="2.4" stroke-linecap="round" opacity="0.55">
+    <path d="M56 96 L26 90"/><path d="M56 104 L26 108"/>
+    <path d="M144 96 L174 90"/><path d="M144 104 L174 108"/>
+  </g>
+
+  </g>
+</svg>
