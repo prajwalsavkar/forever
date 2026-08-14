@@ -105,22 +105,7 @@ const GALLERY_MUSIC_VOLUME = 0.55;
    Five envelopes are scattered across the page. Write five short notes.
    Short and true beats long and impressive. Use \n\n for a paragraph break.
    -------------------------------------------------------------------------- */
-const LETTERS = [
-  { where: "#dusk",     x: "8%",  y: "30%", title: "For the days you're running on empty",
-    text: "You don't have to be impressive on those days. You don't have to be anything.\n\nCome home, say nothing, let me handle dinner and the talking. I'd rather have you tired and honest than bright and performing. That's not a favour — it's the arrangement I actually want." },
-
-  { where: "#sky",      x: "91%", y: "24%", title: "Something I've never said out loud",
-    text: "I was more frightened than I ever let on. Not of you — of being read properly, and of what you'd do once you'd seen the whole thing.\n\nYou saw it. You stayed. I've never quite got over that, and I hope I don't." },
-
-  { where: "#story",    x: "6%",  y: "46%", title: "The thing I noticed first",
-    text: "Not your face, though obviously. It was how carefully you listen — you go quiet in a way most people don't, like whatever's being said actually matters.\n\nI noticed it before I could have told you why it mattered. I know now." },
-
-  { where: "#quiz",     x: "92%", y: "62%", title: "An apology, still owed",
-    text: "For the speed. I decided how fast this should go and then treated your hesitation like a problem to solve instead of information I should have listened to.\n\nYou weren't being difficult. You were being careful, and you were right to be. I'm sorry it took me so long to hear that." },
-
-  { where: "#proposal", x: "9%",  y: "76%", title: "Read this one last",
-    text: "Whatever you decide below, nothing about how I see you changes. I'm not asking you to be sure of everything — only to be sure of this bit.\n\nI'll be the one who remembers the appointments, the names, the where-did-I-put-it. You be the one who makes the days worth remembering. We've been doing this trade for a while now and I think it's working.\n\nTake your time. I'm not going anywhere." },
-];
+const LETTERS = [];   /* letters turned off — empty list means no envelopes */
 
 /* --------------------------------------------------------------------------
    6. THE QUIZ
@@ -173,7 +158,7 @@ const CATS = [
   { slot: "gallery-2", img: "assets/cat1.svg", caption: "I think you dropped this 💍" },
   { slot: "gallery-4", img: "assets/cat3.svg", caption: "You forgot something…" },
   { slot: "gallery-6", img: "assets/cat5.svg", caption: "You forgot AGAIN…" },
-  { slot: "dusk",      img: "assets/cat2.svg", caption: "Excuse me ma'am, this human is waiting." },
+  /* { slot: "dusk",      img: "assets/cat2.svg", caption: "Excuse me ma'am, this human is waiting." }, */
   { slot: "sky",      img: "assets/cat5.svg", caption: "I've been guarding this ring." },
   { slot: "quiz",     img: "assets/cat4.svg", caption: "I have the ring." },
   { slot: "proposal", img: "assets/cat2.svg", caption: "My human is nervous." },
@@ -189,12 +174,12 @@ const CAT_TOASTS = {
    8. THE FUTURE BOARD (shown after she says yes)
    -------------------------------------------------------------------------- */
 const FUTURE = [
-  { icon: "✈️", title: "Trips we'll take",   text: "Starting with the one we keep almost booking." },
-  { icon: "🏡", title: "A home",             text: "Yours, mine, and far too many cushions." },
-  { icon: "🎂", title: "Every birthday",     text: "I'll keep pretending I forgot. I never have." },
-  { icon: "☕", title: "Slow Sundays",       text: "No plans. That's the plan." },
-  { icon: "🐈", title: "More cats",          text: "This is not up for debate." },
-  { icon: "🌙", title: "Ordinary nights",    text: "Thousands of them. That's the whole point." },
+  { icon: "✈️", title: "Trips we'll take", text: "Starting with the one we keep almost booking." },
+  { icon: "🏡", title: "A home",           text: "Yours, mine, and far from this cruel world. South Indian style, the way you wanted." },
+  { icon: "🎂", title: "Every birthday",   text: "I'll keep pretending I forgot. I never have." },
+  { icon: "🍜", title: "Late-night food",  text: "The 11pm decision we always regret and repeat." },
+  { icon: "🐈", title: "More cats",        text: "I know you hate mine. I'll keep bringing them home to annoy you." },
+  { icon: "🌙", title: "Ordinary nights",  text: "Thousands of them — and somehow not ordinary at all." },
 ];
 
 /* --------------------------------------------------------------------------
@@ -567,7 +552,10 @@ const NO_REPLIES = [
     $("#veil").classList.remove("is-on");
     $("#hello").classList.add("is-live");
     await wait(1400);
-    $("#hud").hidden = false;
+    /* Only show the letters counter if there are actually letters to find.
+       (buildLetters hides it, but this line used to run afterwards and
+       switch it straight back on.) */
+    if (LETTERS.length) $("#hud").hidden = false;
   }
 
   $("#continueBtn").addEventListener("click", () => {
