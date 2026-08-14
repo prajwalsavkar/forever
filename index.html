@@ -66,7 +66,15 @@
       <!-- Wrong-password message and hint live here -->
       <p class="gate__msg" id="gateMsg" role="status" aria-live="polite"></p>
       <button class="gate__hint" id="hintBtn" type="button">Need a hint?</button>
+      <p class="gate__nudge" id="gateNudge" aria-live="polite"></p>
     </form>
+  </div>
+  <!-- She swims past every so often. Gets more insistent with wrong guesses. -->
+  <div class="fishbowl" id="fishbowl" aria-hidden="true">
+    <div class="fish" id="fish">
+      <img src="assets/goldfish.svg" alt="" width="240" height="150" />
+    </div>
+    <div class="bubbles" id="bubbles"></div>
   </div>
   <div class="gate__glow" aria-hidden="true"></div>
 </section>
@@ -113,8 +121,8 @@
   <section id="sky" class="sky" aria-label="Memory sky">
     <div class="wrap wrap--narrow">
       <p class="eyebrow eyebrow--light reveal">Look up</p>
-      <h2 class="h2 h2--light reveal">Every star here is a night I remember</h2>
-      <p class="lede lede--light reveal">Tap one. They light up as you go, and they're all connected.</p>
+      <h2 class="h2 h2--light reveal">Every star here is a chapter I remember</h2>
+      <p class="lede lede--light reveal">They're numbered. Start at one and work your way along — the line draws itself as you go.</p>
     </div>
 
     <div class="sky__field" id="skyField">
@@ -124,7 +132,7 @@
     </div>
 
     <p class="sky__progress reveal" id="skyProgress" role="status" aria-live="polite"></p>
-    <p class="sky__complete" id="skyComplete" hidden>Every single one of them is why I'm about to ask you something.</p>
+    <p class="sky__complete" id="skyComplete" hidden>Seven chapters, and not one of them straight. Every single one is why I'm about to ask you something.</p>
   </section>
 
 
@@ -133,10 +141,17 @@
     <div class="wrap wrap--narrow">
       <p class="eyebrow reveal">The long version</p>
       <h2 class="h2 reveal">How we got here</h2>
+      <p class="lede lede--center reveal">No captions for this part. Just look.</p>
+
+      <!-- Only appears if the browser refuses to start the song on its own -->
+      <button class="song-pill" id="songPill" type="button" hidden>
+        <span class="song-pill__note" aria-hidden="true">&#9834;</span>
+        <span id="songPillText">Play the song</span>
+      </button>
     </div>
 
-    <!-- Timeline cards injected by JS from the TIMELINE array in script.js -->
-    <div class="timeline" id="timeline"></div>
+    <!-- Photographs injected by JS from the GALLERY array in script.js -->
+    <div class="gallery wrap" id="gallery"></div>
   </section>
 
 
@@ -200,7 +215,13 @@
       <div class="future" id="future"></div>
     </div>
 
-    <p class="signoff">Made by hand, by me, for you.</p>
+    <!-- The last thing she sees. Reveals itself when she scrolls this far. -->
+    <div class="finale" id="finale">
+      <div class="finale__glow" aria-hidden="true"></div>
+      <p class="finale__line"><span>Tu khush,</span></p>
+      <p class="finale__line finale__line--b"><span>Mai khush</span></p>
+      <p class="finale__sign">made by hand, by me, for you</p>
+    </div>
   </section>
 
 </main>

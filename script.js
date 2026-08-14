@@ -14,15 +14,30 @@
    1. THE PASSWORD
    Keep it something only she would guess. Case doesn't matter.
    -------------------------------------------------------------------------- */
-const SECRET_PASSWORD = "ourcat";
-const PASSWORD_HINT   = "It has four legs, no manners, and sheds on everything.";
+const SECRET_PASSWORD = "goldfish";
+
+/* The hint she gets from the "Need a hint?" button. */
+const PASSWORD_HINT = "You told me once you have the memory of one. I decided it was a compliment.";
+
+/* Wrong guesses, in order. The goldfish gets less subtle each time.
+   After the last one the answer is basically handed over — the door is a
+   greeting, not a test. */
+const WRONG_NUDGES = [
+  "Someone just swam past. She knows.",
+  "She's circling. Look at what she is.",
+  "Think about what I call you when you've forgotten something.",
+  "It's the fish. It was always the fish. Type what she is. 🐠",
+];
 
 /* --------------------------------------------------------------------------
    2. WHEN IT ALL STARTED
    Used by the live counter. Format: year, month-1, day, hour, minute.
-   (Months are zero-based, so 5 = June.)
+   Months are zero-based, so 3 = April.
+
+   >>> CHECK THE YEAR. This is set to 3 April 2025, 3:00 pm. If the year is
+       different, change the 2025 below and nothing else. <<<
    -------------------------------------------------------------------------- */
-const RELATIONSHIP_START = new Date(2021, 5, 14, 19, 30);
+const RELATIONSHIP_START = new Date(2025, 3, 3, 15, 0);
 
 /* --------------------------------------------------------------------------
    3. THE MEMORY SKY
@@ -30,41 +45,60 @@ const RELATIONSHIP_START = new Date(2021, 5, 14, 19, 30);
    so 50 / 50 is dead centre. Keep them between about 8 and 92.
    -------------------------------------------------------------------------- */
 const MEMORIES = [
-  { x: 16, y: 30, date: "The beginning",  title: "Our first long conversation",
-    text: "Replace this with what you actually remember about that night — where you were, what time it got to, the thing she said that you still think about." },
-  { x: 33, y: 62, date: "Early days",     title: "The first time you laughed at something I said",
-    text: "Not a polite laugh. The real one, the one that makes no sound for the first two seconds. Write the story here." },
-  { x: 47, y: 22, date: "That trip",      title: "The place we said we'd go back to",
-    text: "Describe the view, the food, the exact moment you decided you wanted this to be permanent." },
-  { x: 57, y: 71, date: "Not our finest", title: "The funniest fight we ever had",
-    text: "Every couple has one that was genuinely about nothing. This is ours. Put it here — she'll know instantly." },
-  { x: 72, y: 40, date: "The big one",    title: "The day we got engaged",
-    text: "Write it exactly as you remember it, not as it should sound. The nervous parts are the good parts." },
-  { x: 85, y: 72, date: "Any Tuesday",    title: "An entirely ordinary evening",
-    text: "The one where nothing happened and it was still somehow the best day of that month. Those are the ones I keep." },
-  { x: 27, y: 86, date: "Recently",       title: "Something from last week",
-    text: "Proof that this isn't nostalgia — it's still happening. Put the most recent small thing you loved here." },
+  { x: 10, y: 74, mx: 20, my: 9,
+    date: "Chapter one", title: "When we met at Chirp",
+    text: "Our first date, and I gave you almost nothing to work with. I sat across from you with my guard all the way up, answering questions instead of actually talking.\n\nYou had every reason to write the whole thing off that evening. I still don't fully understand why you didn't." },
+
+  { x: 23, y: 55, mx: 63, my: 21,
+    date: "Chapter two", title: "Flour Works",
+    text: "Second time round, something finally loosened. I talked properly — not the careful version, the real one — and you met me there.\n\nWe stayed far longer than either of us planned. I walked out of that place thinking: this could actually go somewhere." },
+
+  { x: 37, y: 33, mx: 27, my: 34,
+    date: "Chapter three", title: "When I went to Jammu",
+    text: "Things were good. Maybe too good, too quickly. I was so certain about where this was heading that I stopped checking whether you were ready to arrive at the same place at the same speed.\n\nThat one's on me." },
+
+  { x: 50, y: 67, mx: 70, my: 47,
+    date: "Chapter four", title: "When there was a dip",
+    text: "It caught up with us. Everything had rushed forward so fast that it stopped feeling like a choice and started feeling like a current, and it overwhelmed you.\n\nSecond thoughts. You were right to have them — I just couldn't see it clearly at the time." },
+
+  { x: 64, y: 44, mx: 30, my: 60,
+    date: "Chapter five", title: "When we met again",
+    text: "And I managed to get it wrong all over again. We went to Dagadusheth together, and I remember standing there thinking Bappa clearly wants this to work — why else do we keep ending up in the same place?\n\nIt was just too early for either of us to read it properly." },
+
+  { x: 78, y: 26, mx: 68, my: 73,
+    date: "Chapter six", title: "The second chance",
+    text: "I finally explained my side of it — not defending myself, just telling you honestly where I'd been and what I'd been getting wrong.\n\nAnd you listened. Then you gave me something I hadn't earned yet: another chance. I have thought about that a lot since." },
+
+  { x: 90, y: 13, mx: 26, my: 88,
+    date: "Chapter seven", title: "And here we are",
+    text: "About to get engaged. Not because it's been smooth — you've read the other six chapters.\n\nWe're different people. We'll disagree, we'll get it wrong, we'll have to keep working at it. Nobody gets handed a perfect fit; they get someone who keeps showing up to figure it out. That's what I'm choosing, with my eyes fully open, and I'm choosing you.\n\nYou're safe with me. Always." },
 ];
 
 /* --------------------------------------------------------------------------
-   4. THE STORY TIMELINE
-   Drop your own pictures into the assets folder and point `photo` at them.
-   Any file type works: "assets/us-in-goa.jpg", "assets/photo1.png", etc.
+   4. THE PHOTOGRAPHS
+   No captions here — just pictures, with a song underneath.
+   Drop your images into the assets folder and list them below. Six or seven
+   works best; the grid repeats its sizes every seven, so any number is fine.
+   The order matters, the sizes don't — the layout handles that.
    -------------------------------------------------------------------------- */
-const TIMELINE = [
-  { photo: "assets/photo1.png", date: "Chapter one",   title: "Before I knew you",
-    text: "Replace this caption. Two lines is plenty — the picture does the talking." },
-  { photo: "assets/photo2.png", date: "Chapter two",   title: "The first photo of us",
-    text: "The one where we're both slightly out of frame and neither of us is looking at the camera." },
-  { photo: "assets/photo3.png", date: "Chapter three", title: "Somewhere new",
-    text: "First trip. Terrible planning. Perfect anyway." },
-  { photo: "assets/photo4.png", date: "Chapter four",  title: "The ordinary stretch",
-    text: "Groceries, traffic, bad TV. Turns out this is the part I like most." },
-  { photo: "assets/photo5.png", date: "Chapter five",  title: "The day everything got real",
-    text: "You know the one." },
-  { photo: "assets/photo6.png", date: "Chapter six",   title: "Now",
-    text: "Which brings us, more or less, to this page." },
+const GALLERY = [
+  "assets/photo1.jpeg",
+  "assets/photo2.jpeg",
+  "assets/photo3.jpeg",
+  "assets/photo4.jpeg",
+  "assets/photo5.jpeg",
+  "assets/photo6.jpeg",
 ];
+
+/* If a photo isn't found, these extensions are tried automatically before
+   giving up — so .jpeg vs .jpg vs .JPG can't break the page. You can even
+   leave the extension off entirely: "assets/photo1" works fine. */
+const PHOTO_EXTENSIONS = ["jpeg", "jpg", "png", "webp", "JPEG", "JPG", "PNG"];
+
+/* The song for the photographs. It starts when she reaches them and fades
+   out when she reaches the quiz. Replace assets/gallery.mp3 with your track. */
+const GALLERY_MUSIC_SRC = "assets/gallery.mp3";
+const GALLERY_MUSIC_VOLUME = 0.55;
 
 /* --------------------------------------------------------------------------
    5. THE HIDDEN LETTERS
@@ -72,16 +106,20 @@ const TIMELINE = [
    Short and true beats long and impressive. Use \n\n for a paragraph break.
    -------------------------------------------------------------------------- */
 const LETTERS = [
-  { where: "#dusk",     x: "8%",  y: "30%", title: "For when you're tired",
-    text: "Replace this with something you'd actually say to her at the end of a long day.\n\nIt doesn't need to be clever. It needs to sound like you." },
+  { where: "#dusk",     x: "8%",  y: "30%", title: "For the days you're running on empty",
+    text: "You don't have to be impressive on those days. You don't have to be anything.\n\nCome home, say nothing, let me handle dinner and the talking. I'd rather have you tired and honest than bright and performing. That's not a favour — it's the arrangement I actually want." },
+
   { where: "#sky",      x: "91%", y: "24%", title: "Something I've never said out loud",
-    text: "There's usually one. Write it here, where it's quiet." },
+    text: "I was more frightened than I ever let on. Not of you — of being read properly, and of what you'd do once you'd seen the whole thing.\n\nYou saw it. You stayed. I've never quite got over that, and I hope I don't." },
+
   { where: "#story",    x: "6%",  y: "46%", title: "The thing I noticed first",
-    text: "Not the obvious thing. The small one you never mentioned because it sounded strange." },
+    text: "Not your face, though obviously. It was how carefully you listen — you go quiet in a way most people don't, like whatever's being said actually matters.\n\nI noticed it before I could have told you why it mattered. I know now." },
+
   { where: "#quiz",     x: "92%", y: "62%", title: "An apology, still owed",
-    text: "Pick the small one you never properly said sorry for. She'll laugh. Probably." },
+    text: "For the speed. I decided how fast this should go and then treated your hesitation like a problem to solve instead of information I should have listened to.\n\nYou weren't being difficult. You were being careful, and you were right to be. I'm sorry it took me so long to hear that." },
+
   { where: "#proposal", x: "9%",  y: "76%", title: "Read this one last",
-    text: "Whatever you'd want her to be holding in her head right before she answers the question below." },
+    text: "Whatever you decide below, nothing about how I see you changes. I'm not asking you to be sure of everything — only to be sure of this bit.\n\nI'll be the one who remembers the appointments, the names, the where-did-I-put-it. You be the one who makes the days worth remembering. We've been doing this trade for a while now and I think it's working.\n\nTake your time. I'm not going anywhere." },
 ];
 
 /* --------------------------------------------------------------------------
@@ -89,45 +127,53 @@ const LETTERS = [
    `answer` is the index of the correct option, counting from 0.
    -------------------------------------------------------------------------- */
 const QUIZ = [
-  { q: "Who confessed first?",
-    options: ["You did", "I did", "Neither — it was mutual and dignified"],
+  { q: "What do you think love actually is, underneath all of it?",
+    options: ["A feeling you fall into", "Choosing the same person again on the hard days", "Two people who never disagree"],
     answer: 1,
-    right: "Correct. And I'd do it again, just as badly.",
-    wrong: "Revisionist history. It was me, and I was a mess about it." },
+    right: "That's the one. The falling is the easy part — it's the choosing that counts.",
+    wrong: "I'd say it's the choosing. Anyone can fall; staying is the actual thing." },
 
-  { q: "What's my favourite snack?",
-    options: ["Whatever's on your plate", "Something spicy", "Anything after midnight"],
-    answer: 0,
-    right: "Obviously. It has always tasted better on your plate.",
-    wrong: "Close, but no. It's whatever's on your plate." },
+  { q: "If we could keep only one memory of us, which one should survive?",
+    options: ["The biggest day", "The one we argued about", "An entirely ordinary evening"],
+    answer: 2,
+    right: "Yes. The big days remember themselves. The ordinary ones were the actual life.",
+    wrong: "I'd save an ordinary evening. That's where we really happened." },
 
-  { q: "Which song reminds me of you?",
-    options: ["The one from the car", "The one you hum badly", "The one we danced to"],
+  { q: "What makes two people last?",
+    options: ["Being perfectly matched", "Never needing to apologise", "Being willing to repair it"],
+    answer: 2,
+    right: "Exactly right. Not never breaking — always mending.",
+    wrong: "It's the repairing, I think. Nobody's matched perfectly; some people just keep fixing it." },
+
+  { q: "What am I most afraid of?",
+    options: ["Losing you all at once", "Us slowly going quiet with each other", "Not being enough"],
     answer: 1,
-    right: "That one. Wrong lyrics and all.",
-    wrong: "Good guess, but it's the one you hum badly." },
+    right: "Yes. Not the loud ending — the quiet one. I'd rather we argue than drift.",
+    wrong: "Those too. But mostly the quiet drifting. That's the one that scares me." },
 
-  { q: "What was the first film we watched together?",
-    options: ["You fell asleep, so — unclear", "The one you picked", "The one I picked"],
-    answer: 0,
-    right: "Exactly. Twenty minutes in, gone.",
-    wrong: "Nope. You fell asleep. We'll never truly know." },
+  { q: "When do you think I knew?",
+    options: ["The first date", "Flour Works", "Somewhere I couldn't point to"],
+    answer: 2,
+    right: "There wasn't one moment. It crept up slowly and then it was simply true.",
+    wrong: "Not quite. There was no single moment — it just gradually became obvious." },
 ];
 
 /* --------------------------------------------------------------------------
    7. THE CATS
    `slot` decides where each cat shows up:
-     "story-1" … "story-4"  →  between timeline cards
+     "gallery-2" … "gallery-6" →  between photographs (the number is the
+                                  photo it appears after)
+     "dusk"                 →  beside the counter
      "sky"                  →  in the night sky section
      "quiz"                 →  under the quiz
      "proposal"             →  above the big question
    Add more by copying a line and giving it a new slot that already exists.
    -------------------------------------------------------------------------- */
 const CATS = [
-  { slot: "story-1",  img: "assets/cat1.svg", caption: "I think you dropped this 💍" },
-  { slot: "story-2",  img: "assets/cat3.svg", caption: "You forgot something…" },
-  { slot: "story-3",  img: "assets/cat5.svg", caption: "You forgot AGAIN…" },
-  { slot: "story-4",  img: "assets/cat2.svg", caption: "Excuse me ma'am, this human is waiting." },
+  { slot: "gallery-2", img: "assets/cat1.svg", caption: "I think you dropped this 💍" },
+  { slot: "gallery-4", img: "assets/cat3.svg", caption: "You forgot something…" },
+  { slot: "gallery-6", img: "assets/cat5.svg", caption: "You forgot AGAIN…" },
+  { slot: "dusk",      img: "assets/cat2.svg", caption: "Excuse me ma'am, this human is waiting." },
   { slot: "sky",      img: "assets/cat5.svg", caption: "I've been guarding this ring." },
   { slot: "quiz",     img: "assets/cat4.svg", caption: "I have the ring." },
   { slot: "proposal", img: "assets/cat2.svg", caption: "My human is nervous." },
@@ -163,6 +209,15 @@ const MUSIC_SRC = "assets/music.mp3";
    Ten escalating replies, in order. Edit the text freely.
    After the tenth it gives up and turns into a second YES.
    -------------------------------------------------------------------------- */
+/* Shown as she finds each envelope — the last one lands after all five. */
+const LETTER_PROGRESS = [
+  "One found. There are more.",
+  "Two. Keep looking.",
+  "Three. You're better at this than you claim.",
+  "Four. One still hiding.",
+  "All five found — and that's just the ones I wrote down ❤️",
+];
+
 const NO_REPLIES = [
   "Are you sure? 🤔",
   "Wrong button, hooman.",
@@ -442,10 +497,36 @@ const NO_REPLIES = [
   requestAnimationFrame(() =>
     $$(".gate .reveal").forEach((n) => n.classList.add("reveal--in")));
 
+  const gateNudge = $("#gateNudge");
+  let wrongCount = 0;
+
+  function nudge(text) {
+    gateNudge.textContent = text;
+    gateNudge.classList.remove("is-on");
+    void gateNudge.offsetWidth;
+    gateNudge.classList.add("is-on");
+  }
+
   $("#hintBtn").addEventListener("click", () => {
     gateMsg.textContent = PASSWORD_HINT;
     gateMsg.classList.add("is-on");
+    gate.classList.add("is-fish-1");        // she swims in to take the credit
   });
+
+  /* A few bubbles rising behind the card */
+  (function seedBubbles() {
+    if (REDUCED) return;
+    const bowl = $("#bubbles");
+    for (let i = 0; i < 9; i++) {
+      const b = el("div", "bubble");
+      b.style.setProperty("--bx", rand(4, 96).toFixed(0) + "%");
+      b.style.setProperty("--bs", rand(5, 13).toFixed(0) + "px");
+      b.style.setProperty("--bd", rand(7, 15).toFixed(1) + "s");
+      b.style.setProperty("--bdelay", (-rand(0, 12)).toFixed(1) + "s");
+      b.style.setProperty("--bdrift", rand(-40, 40).toFixed(0) + "px");
+      bowl.appendChild(b);
+    }
+  })();
 
   gateForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -458,6 +539,12 @@ const NO_REPLIES = [
       gateCard.classList.add("is-wrong");
       gateMsg.textContent = "Wrong password, Mister Hacker 😏";
       gateMsg.classList.add("is-on");
+
+      /* Each wrong try brings the goldfish closer and makes the hint plainer */
+      wrongCount++;
+      nudge(WRONG_NUDGES[Math.min(wrongCount, WRONG_NUDGES.length) - 1]);
+      gate.classList.add("is-fish-" + Math.min(wrongCount, 3));
+
       pwInput.select();
     }
   });
@@ -505,7 +592,14 @@ const NO_REPLIES = [
   /* ======================================================================
      ACT IV — THE MEMORY SKY
      ====================================================================== */
-  const foundOrder = [];
+  const found = new Set();
+  const drawn = new Set();
+
+  /* On a phone the sky panel is portrait, so each chapter can carry its own
+     mobile coordinates (mx / my). Falls back to x / y if they're missing. */
+  const isNarrow = () => window.matchMedia("(max-width: 860px)").matches;
+  const px = (m) => (isNarrow() && m.mx != null ? m.mx : m.x);
+  const py = (m) => (isNarrow() && m.my != null ? m.my : m.y);
 
   function buildSky() {
     const field = $("#skyField");
@@ -514,16 +608,18 @@ const NO_REPLIES = [
     MEMORIES.forEach((m, i) => {
       const b = el("button", "star");
       b.type = "button";
-      b.style.setProperty("--x", m.x + "%");
-      b.style.setProperty("--y", m.y + "%");
+      b.style.setProperty("--x", px(m) + "%");
+      b.style.setProperty("--y", py(m) + "%");
       b.style.setProperty("--pulse", (i * 0.42).toFixed(2) + "s");
-      b.setAttribute("aria-label", "Memory: " + m.title);
-      b.appendChild(el("span", "star__label", m.date));
+      b.setAttribute("aria-label", "Chapter " + (i + 1) + ": " + m.title);
+      b.appendChild(el("span", "star__num", String(i + 1)));
+      b.appendChild(el("span", "star__label", m.title));
       b.addEventListener("click", () => {
-        if (!b.classList.contains("star--found")) {
+        if (!found.has(i)) {
           b.classList.add("star--found");
-          foundOrder.push(i);
-          drawConstellation();
+          found.add(i);
+          connect(i - 1, i);
+          connect(i, i + 1);
           updateSkyProgress();
           const r = b.getBoundingClientRect();
           FX.sparkle(r.left + r.width / 2, r.top + r.height / 2, 22);
@@ -533,21 +629,42 @@ const NO_REPLIES = [
       field.appendChild(b);
     });
 
-    function drawConstellation() {
-      if (foundOrder.length < 2) return;
-      const a = MEMORIES[foundOrder[foundOrder.length - 2]];
-      const b = MEMORIES[foundOrder[foundOrder.length - 1]];
+    /* Lines only ever join consecutive chapters, so the finished shape always
+       traces the story in order no matter which star she taps first. */
+    function connect(a, b) {
+      if (a < 0 || b >= MEMORIES.length) return;
+      if (!found.has(a) || !found.has(b)) return;
+      const key = a + "-" + b;
+      if (drawn.has(key)) return;
+      drawn.add(key);
+      const A = MEMORIES[a], B = MEMORIES[b];
       const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-      line.setAttribute("x1", a.x); line.setAttribute("y1", a.y);
-      line.setAttribute("x2", b.x); line.setAttribute("y2", b.y);
-      const len = Math.hypot(b.x - a.x, b.y - a.y);
-      line.style.setProperty("--len", len);
+      line.setAttribute("x1", px(A)); line.setAttribute("y1", py(A));
+      line.setAttribute("x2", px(B)); line.setAttribute("y2", py(B));
+      line.dataset.pair = key;
+      line.style.setProperty("--len", Math.hypot(px(B) - px(A), py(B) - py(A)));
       svg.appendChild(line);
     }
 
+    /* Re-point everything if the phone is rotated across the breakpoint */
+    let narrow = isNarrow();
+    window.addEventListener("resize", () => {
+      if (isNarrow() === narrow) return;
+      narrow = isNarrow();
+      $$(".star", field).forEach((node, i) => {
+        node.style.setProperty("--x", px(MEMORIES[i]) + "%");
+        node.style.setProperty("--y", py(MEMORIES[i]) + "%");
+      });
+      $$("line", svg).forEach((line) => {
+        const [a, b] = line.dataset.pair.split("-").map(Number);
+        line.setAttribute("x1", px(MEMORIES[a])); line.setAttribute("y1", py(MEMORIES[a]));
+        line.setAttribute("x2", px(MEMORIES[b])); line.setAttribute("y2", py(MEMORIES[b]));
+      });
+    }, { passive: true });
+
     function updateSkyProgress() {
-      const n = foundOrder.length, total = MEMORIES.length;
-      $("#skyProgress").textContent = n + " of " + total + " stars lit";
+      const n = found.size, total = MEMORIES.length;
+      $("#skyProgress").textContent = n + " of " + total + " chapters lit";
       if (n === total) {
         const c = $("#skyComplete");
         c.hidden = false;
@@ -563,41 +680,32 @@ const NO_REPLIES = [
   /* ======================================================================
      ACT V — THE TIMELINE  (plus cats and butterflies)
      ====================================================================== */
-  function buildTimeline() {
-    const tl = $("#timeline");
-    const catsByStory = {};
-    CATS.filter((c) => c.slot.startsWith("story-"))
-        .forEach((c) => { catsByStory[Number(c.slot.split("-")[1])] = c; });
+  function buildGallery() {
+    const grid = $("#gallery");
+    const catsBySlot = {};
+    CATS.filter((c) => c.slot.startsWith("gallery-"))
+        .forEach((c) => { catsBySlot[Number(c.slot.split("-")[1])] = c; });
 
-    TIMELINE.forEach((item, i) => {
-      const side = i % 2 === 0 ? "tl-item--left" : "tl-item--right";
-      const node = el("div", "tl-item reveal " + side);
-      node.innerHTML =
-        '<article class="tl-card">' +
-          '<div class="tl-card__photo"><img src="' + item.photo +
-            '" alt="" loading="lazy" decoding="async" /></div>' +
-          '<div class="tl-card__body">' +
-            '<p class="tl-card__date"></p>' +
-            '<h3 class="tl-card__title"></h3>' +
-            '<p class="tl-card__text"></p>' +
-          "</div>" +
-        "</article>";
-      $(".tl-card__date", node).textContent  = item.date;
-      $(".tl-card__title", node).textContent = item.title;
-      $(".tl-card__text", node).textContent  = item.text;
-      tl.appendChild(node);
+    GALLERY.forEach((src, i) => {
+      const fig = el("figure", "gal reveal gp" + ((i % 7) + 1));
+      fig.style.setProperty("--rd", ((i % 3) * 0.12).toFixed(2) + "s");
+      const img = el("img");
+      img.alt = ""; img.loading = "lazy"; img.decoding = "async";
+      loadPhoto(img, src, fig);
+      fig.appendChild(img);
+      grid.appendChild(fig);
 
-      const cat = catsByStory[i + 1];
-      if (cat) tl.appendChild(makeCat(cat, "cat-meme--inline reveal"));
+      const cat = catsBySlot[i + 1];
+      if (cat) grid.appendChild(makeCat(cat, "cat-meme--inline reveal"));
     });
 
-    // A few butterflies drifting through the story section
+    // Butterflies drifting through the photographs
     if (!REDUCED) {
       const story = $("#story");
       ["🦋", "🦋", "✿", "🦋"].forEach((g, i) => {
         const b = el("div", "butterfly", g);
-        b.style.left = [12, 82, 8, 88][i] + "%";
-        b.style.top = [34, 48, 72, 26][i] + "%";
+        b.style.left = [10, 84, 6, 90][i] + "%";
+        b.style.top = [30, 46, 70, 24][i] + "%";
         b.style.setProperty("--size", [22, 18, 16, 24][i] + "px");
         b.style.setProperty("--dur", [24, 30, 27, 21][i] + "s");
         b.style.setProperty("--delay", -i * 4 + "s");
@@ -605,6 +713,34 @@ const NO_REPLIES = [
         story.appendChild(b);
       });
     }
+  }
+
+  /* Tries the given path first, then the same name with each of the other
+     common extensions. Only after all of them fail does it mark the slot. */
+  function loadPhoto(img, src, fig) {
+    /* Inline images (used by the single-file preview build) have no filename
+       to retry, so they bypass all of this. */
+    if (/^data:/i.test(src)) { img.src = src; return; }
+
+    const base = src.replace(/\.[^./\\]+$/, "");
+    const tries = [];
+    if (src !== base) tries.push(src);                   // whatever was written
+    PHOTO_EXTENSIONS.forEach((ext) => {
+      const candidate = base + "." + ext;
+      if (!tries.includes(candidate)) tries.push(candidate);
+    });
+
+    let i = 0;
+    img.addEventListener("error", () => {
+      i++;
+      if (i < tries.length) { img.src = tries[i]; return; }
+      fig.classList.add("gal--missing");
+      fig.setAttribute("data-missing", base.split("/").pop());
+      console.warn("No photo found for " + base +
+        " — tried: " + tries.join(", ") +
+        ". Check the file is in the assets folder and the name matches GALLERY in script.js.");
+    });
+    img.src = tries[0];
   }
 
   function makeCat(cat, extraClass) {
@@ -623,6 +759,7 @@ const NO_REPLIES = [
       const cat = CATS.find((c) => c.slot === slot);
       if (cat && target) target.appendChild(makeCat(cat, cls));
     };
+    put("dusk", $(".dusk .wrap"), "cat-meme--inline cat-meme--dark reveal");
     put("sky", $("#sky"), "cat-meme--inline cat-meme--dark reveal");
     put("quiz", $(".quiz .wrap"), "cat-meme--inline reveal");
     const prop = CATS.find((c) => c.slot === "proposal");
@@ -651,9 +788,10 @@ const NO_REPLIES = [
           b.classList.add("is-open");
           lettersFound++;
           const hud = $("#hud");
-          $("#hudText").textContent = lettersFound === LETTERS.length
-            ? "All " + LETTERS.length + " letters found ❤️"
-            : lettersFound + " of " + LETTERS.length + " letters found";
+          $("#hudText").textContent =
+            LETTER_PROGRESS[lettersFound - 1] ||
+            lettersFound + " of " + LETTERS.length + " letters found";
+          if (lettersFound === LETTERS.length) hud.classList.add("hud--complete");
           hud.classList.remove("is-bump");
           void hud.offsetWidth;
           hud.classList.add("is-bump");
@@ -664,7 +802,8 @@ const NO_REPLIES = [
       });
       host.appendChild(b);
     });
-    $("#hudText").textContent = "0 of " + LETTERS.length + " letters found";
+    // $("#hudText").textContent = LETTERS.length + " letters are hidden here";
+    $("#hud").hidden = true;
   }
 
 
@@ -816,6 +955,97 @@ const NO_REPLIES = [
 
 
   /* ======================================================================
+     THE SONG UNDER THE PHOTOGRAPHS
+     Starts when she reaches the pictures, fades out when she reaches the quiz.
+     ====================================================================== */
+  const GallerySong = (function () {
+    let audio = null, raf = 0, on = false, blocked = false;
+
+    function ensure() {
+      if (!audio) {
+        audio = new Audio(GALLERY_MUSIC_SRC);
+        audio.loop = true;
+        audio.volume = 0;
+        audio.preload = "auto";
+      }
+      return audio;
+    }
+
+    function fade(to, ms, done) {
+      cancelAnimationFrame(raf);
+      const from = audio.volume, t0 = performance.now();
+      (function s(now) {
+        const k = clamp((now - t0) / ms, 0, 1);
+        audio.volume = clamp(from + (to - from) * k, 0, 1);
+        if (k < 1) raf = requestAnimationFrame(s);
+        else if (done) done();
+      })(t0);
+    }
+
+    /* Browsers only allow sound after the person has interacted with the page.
+       She has (the unlock button), so this normally just works — but if it's
+       refused we surface a small pill instead of failing silently. */
+    function attempt() {
+      const a = ensure();
+      a.play().then(() => {
+        on = true; blocked = false;
+        $("#songPill").hidden = true;
+        fade(GALLERY_MUSIC_VOLUME, 2200);
+      }).catch(() => {
+        blocked = true;
+        $("#songPill").hidden = false;
+      });
+    }
+
+    $("#songPill").addEventListener("click", () => {
+      if (on) { GallerySong.stop(); $("#songPillText").textContent = "Play the song"; }
+      else { attempt(); $("#songPillText").textContent = "Pause the song"; }
+    });
+
+    return {
+      play() { if (!on && !answered) attempt(); },
+      stop() {
+        if (!audio || !on) return;
+        on = false;
+        fade(0, 1400, () => audio.pause());
+        if (blocked) $("#songPill").hidden = false;
+      },
+      get playing() { return on; },
+    };
+  })();
+
+  /* The letters counter tucks itself away while she's at the question */
+  const hudObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e) => $("#hud").classList.toggle("is-away", e.isIntersecting));
+  }, { threshold: 0.35 });
+
+  /* Play on the photographs, stop at the quiz. */
+  const songObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      if (e.target.id === "story") GallerySong.play();
+      if (e.target.id === "quiz") GallerySong.stop();
+    });
+  }, { threshold: 0.2 });
+
+
+  /* ======================================================================
+     THE FINALE — reveals itself when she scrolls to the very end
+     ====================================================================== */
+  const finaleObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      finaleObserver.unobserve(e.target);
+      e.target.classList.add("is-on");
+      const r = e.target.getBoundingClientRect();
+      setTimeout(() => FX.sparkle(r.left + r.width / 2, r.top + r.height * 0.45, 40), 500);
+      setTimeout(() => FX.hearts(20), 900);
+      setTimeout(() => FX.firework(r.left + r.width / 2, r.top + r.height * 0.4, 56), 1700);
+    });
+  }, { threshold: 0.45 });
+
+
+  /* ======================================================================
      ACT VII — THE QUESTION
      ====================================================================== */
   const noBtn = $("#noBtn");
@@ -950,6 +1180,7 @@ const NO_REPLIES = [
     const r = yesBtn.getBoundingClientRect();
     const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
 
+    GallerySong.stop();
     Music.start();
     $("#rings").classList.add("is-on");
     FX.confetti(cx, cy, 130);
@@ -975,6 +1206,7 @@ const NO_REPLIES = [
     const after = $("#after");
     after.hidden = false;
     watchReveals(after);
+    finaleObserver.observe($("#finale"));
 
     await wait(700);
     after.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "start" });
@@ -1006,7 +1238,7 @@ const NO_REPLIES = [
     built = true;
 
     buildSky();
-    buildTimeline();
+    buildGallery();
     placeLooseCats();
     buildQuiz();
     buildFuture();
@@ -1014,6 +1246,10 @@ const NO_REPLIES = [
 
     tickCounter();
     setInterval(tickCounter, 1000);
+
+    songObserver.observe($("#story"));
+    songObserver.observe($("#quiz"));
+    hudObserver.observe($("#proposal"));
 
     watchReveals();
   }

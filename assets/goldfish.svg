@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 150" width="240" height="150">
+  <defs>
+    <linearGradient id="gfBody" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#FFC978"/>
+      <stop offset="0.45" stop-color="#F79B45"/>
+      <stop offset="1" stop-color="#E07430"/>
+    </linearGradient>
+    <linearGradient id="gfTail" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD9A0" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#F9AE5E" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#EF8C3C"/>
+    </linearGradient>
+    <linearGradient id="gfFin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD9A0" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#F19347" stop-opacity="0.75"/>
+    </linearGradient>
+  </defs>
+
+  <!-- tail: flowing fantail veils -->
+  <g class="gf-tail">
+    <path d="M66 75 C 44 52, 26 30, 10 14 C 12 40, 22 60, 40 74 C 22 60, 10 44, 4 26
+             C 6 52, 20 72, 42 82 Z" fill="url(#gfTail)"/>
+    <path d="M66 75 C 44 98, 26 120, 10 136 C 12 110, 22 90, 40 76 C 22 90, 10 106, 4 124
+             C 6 98, 20 78, 42 68 Z" fill="url(#gfTail)"/>
+    <path d="M68 75 C 46 70, 28 66, 12 62 C 30 78, 50 84, 66 82 Z"
+          fill="url(#gfTail)" opacity="0.7"/>
+  </g>
+
+  <!-- dorsal fin -->
+  <path class="gf-dorsal" d="M118 34 C 128 12, 150 8, 162 16 C 148 22, 136 30, 128 42 Z" fill="url(#gfFin)"/>
+  <!-- lower fin -->
+  <path class="gf-belly" d="M120 116 C 128 132, 146 138, 156 132 C 144 126, 134 120, 128 110 Z" fill="url(#gfFin)"/>
+
+  <!-- body -->
+  <path d="M60 75 C 78 34, 122 20, 160 26 C 200 32, 226 52, 228 75
+           C 226 98, 200 118, 160 124 C 122 130, 78 116, 60 75 Z" fill="url(#gfBody)"/>
+
+  <!-- soft belly highlight -->
+  <path d="M96 96 C 120 118, 168 122, 204 104 C 178 122, 128 126, 96 96 Z"
+        fill="#FFE3B4" opacity="0.55"/>
+  <!-- scale shimmer -->
+  <g fill="#FFFFFF" opacity="0.22">
+    <ellipse cx="150" cy="52" rx="16" ry="8" transform="rotate(-18 150 52)"/>
+    <ellipse cx="182" cy="62" rx="11" ry="6" transform="rotate(-12 182 62)"/>
+  </g>
+
+  <!-- side fin -->
+  <path class="gf-side" d="M138 82 C 128 100, 134 116, 148 120 C 146 106, 146 92, 150 84 Z"
+        fill="#F5A45A" opacity="0.92"/>
+
+  <!-- gill -->
+  <path d="M186 44 C 176 58, 176 92, 186 106" stroke="#D9702C" stroke-width="2.6"
+        fill="none" opacity="0.5" stroke-linecap="round"/>
+
+  <!-- eye -->
+  <circle cx="204" cy="66" r="9.5" fill="#FFFFFF"/>
+  <circle cx="206" cy="66" r="5.6" fill="#3A2A33"/>
+  <circle cx="208" cy="63.5" r="2" fill="#FFFFFF"/>
+
+  <!-- mouth -->
+  <path d="M226 80 C 221 84, 218 84, 215 82" stroke="#C9601F" stroke-width="2.4"
+        fill="none" stroke-linecap="round"/>
+</svg>
